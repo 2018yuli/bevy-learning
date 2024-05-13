@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use super::movement::Velocity;
+use super::movement::{Acceleration, MovingObjectBundle, Velocity};
 
 const STARTING_TRANSLATION: Vec3 = Vec3::new(0.0, 0.0, -20.0);
 const STARTING_VELOCITY: Vec3 = Vec3::new(0.0, 0.0, 1.0);
@@ -20,10 +20,9 @@ impl Plugin for SpaceshipPlugin {
 }
 
 fn spawn_spaceship(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(SpaceshipBundle {
-        velocity: Velocity {
-            value: STARTING_VELOCITY,
-        },
+    commands.spawn(MovingObjectBundle {
+        velocity: Velocity::new(STARTING_VELOCITY),
+        acceleration: Acceleration::new(Vec3::ZERO),
         model: SceneBundle {
             scene: asset_server.load("spaceship.glb#Scene0"),
             transform: Transform::from_translation(STARTING_TRANSLATION),

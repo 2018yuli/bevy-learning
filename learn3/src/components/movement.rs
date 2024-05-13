@@ -1,17 +1,35 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, winit::accessibility};
 
+// 速度
 #[derive(Component, Debug)]
 pub struct Velocity {
     pub value: Vec3,
 }
 
 impl Velocity {
-    pub fn new(value: Vec3) -> Self {Self { value }}
+    pub fn new(value: Vec3) -> Self {
+        Self { value }
+    }
 }
 
+// 加速
 #[derive(Component, Debug)]
 pub struct Acceleration {
     pub value: Vec3,
+}
+
+impl Acceleration {
+    pub fn new(value: Vec3) -> Self {
+        Self { value }
+    }
+}
+
+// 可移动物体 Bundle
+#[derive(Bundle)]
+pub struct MovingObjectBundle {
+    pub velocity: Velocity,
+    pub acceleration: Acceleration,
+    pub model: SceneBundle,
 }
 
 pub struct MovementPlugin;
@@ -22,11 +40,14 @@ impl Plugin for MovementPlugin {
     }
 }
 
+fn update_velocity(mut query: Query<(&Acceleration, &mut Velocity)>, time: Res<Time>) {
+    for (accleration, mut velocity) in query.iter_mut() {
+        velocity.value += accleration.value * time.delta_seconds();
+    }
+}
+
 fn update_position(mut query: Query<(&Velocity, &mut Transform)>, time: Res<Time>) {
     for (velocity, mut transform) in query.iter_mut() {
-        // transform.translation.x += velocity.value.x;
-        // transform.translation.y += velocity.value.y;
-        // transform.translation.z += velocity.value.z;
         transform.translation += velocity.value * time.delta_seconds();
     }
 }

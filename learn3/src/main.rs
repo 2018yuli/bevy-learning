@@ -1,6 +1,7 @@
 mod components;
 
 use bevy::prelude::*;
+use components::asteroids::AsteroidPlugin;
 use components::spaceship::SpaceshipPlugin;
 use components::movement::MovementPlugin;
 use components::debug::DebugPlugin;
@@ -19,6 +20,7 @@ fn main() {
     .add_plugins(MovementPlugin)
     .add_plugins(DebugPlugin)
     .add_plugins(SpaceshipPlugin)
+    .add_plugins(AsteroidPlugin)
     .add_plugins(CameraPlugin)
     .run();
 }
