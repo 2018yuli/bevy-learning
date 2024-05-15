@@ -1,5 +1,7 @@
 use bevy::{prelude::*, winit::accessibility};
 
+use super::collision_detection::Collider;
+
 // 速度
 #[derive(Component, Debug)]
 pub struct Velocity {
@@ -29,6 +31,7 @@ impl Acceleration {
 pub struct MovingObjectBundle {
     pub velocity: Velocity,
     pub acceleration: Acceleration,
+    pub collider: Collider,
     pub model: SceneBundle,
 }
 
