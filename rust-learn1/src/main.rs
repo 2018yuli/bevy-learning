@@ -1,5 +1,3 @@
-use std::result;
-
 // rust 安装 curl --proto '=https'--tlsv1.2 -sSf https://sh.rustup.rs | sh
 // 在线 https://play.rust-lang.org/
 // windows 中，不想安装 visual studio，想使用 gnu 工具链：rustup default stable-gnu
@@ -222,15 +220,15 @@ fn main() {
 
     // 22. 函数闭包
     let a = 10u32; // 局部变量
-    // 闭包可以捕获函数中的局部变量为我所用，而函数不行
-    // fn add_v1(x: u32) -> u32 {
-    //     x + a
-    // }
-    // let result1 = add_v1(20); // 调用函数，报错，
+                   // 闭包可以捕获函数中的局部变量为我所用，而函数不行
+                   // fn add_v1(x: u32) -> u32 {
+                   //     x + a
+                   // }
+                   // let result1 = add_v1(20); // 调用函数，报错，
     let add_v2 = |x: u32| -> u32 { x + a }; // 定义一个闭包
-    let add_v3 = |x|    { x + a };
-    let add_v4 = |x|  x + a;
-    
+    let add_v3 = |x| x + a;
+    let add_v4 = |x| x + a;
+
     let result2 = add_v2(20); // 调用闭包
     let result3 = add_v3(20);
     let result4 = add_v4(20);
